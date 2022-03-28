@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// https://www.acwing.com/problem/content/897/
+// https://www.acwing.com/problem/content/899/
 
 const int N = 1010;
 int n, m;
