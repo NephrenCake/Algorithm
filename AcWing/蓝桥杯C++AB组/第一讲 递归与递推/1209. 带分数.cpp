@@ -20,7 +20,7 @@ int n;  // 输入的正整数
 int res = 0;
 
 bool check(int c, int a) {
-    int b = c * n - c * a;
+    long long  b = (long long) c * n - c * a;  // 防止溢出
     if (a == 0 || b == 0 || c == 0)
         return false;
 
