@@ -70,6 +70,17 @@ int main() {
         for (int i = 0; i < 5; i++)
             cin >> g[i];  // 读入的是一个字符串
 
+        /*
+         * 也可以这么读
+            for (int i = 0; i < 5; ++i)
+                for (int j = 0; j < 5; ++j)
+                    cin >> g[i][j];
+         * 但不能这么读
+            for (int i = 0; i < 5; ++i)
+                for (int j = 0; j < 5; ++j)
+                    scanf("%c", &g[i][j]);
+         */
+
         res = 10;  // 较大的数，比6大就行
         for (int op = 0; op < 32; op++)
             forward(op);  // 仅是枚举第一行的操作可能，后续只是接下去推演而已

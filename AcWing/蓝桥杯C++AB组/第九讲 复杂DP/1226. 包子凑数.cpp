@@ -8,6 +8,14 @@ using namespace std;
 // https://www.acwing.com/problem/content/1228/
 
 /**
+ * 状态表示 f[i][j]
+ *      集合 前 i 个，总和是 j
+ *      属性 集合是否非空
+ * 状态计算
+ *
+ */
+
+/**
  * 解1 朴素
  */
 const int N = 10010;
