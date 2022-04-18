@@ -10,7 +10,7 @@ int f[N][N][O];
 
 int main() {
     cin >> n >> m;
-    o = 1 << n;  // 最多可能的酒数量
+    o = 1 << n;
 
     for (int i = 0; i <= n; i++) {
         for (int j = 0; j <= m; j++) {

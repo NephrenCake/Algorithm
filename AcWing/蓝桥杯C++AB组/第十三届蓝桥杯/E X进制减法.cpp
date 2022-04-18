@@ -6,7 +6,7 @@ typedef long long LL;
 
 const int N = 1000, M = 100000 + 10, MOD = 1000000007;
 
-int n;  // 姣忎竴鏁颁綅鏈�楂樹负 N 杩涘埗,鏈�浣庝负浜岃繘
+int n;  // 每一数位最高为 N 进制,最低为二进
 int ma, mb, a[M], b[M];  // a > b
 int wq[M];
 

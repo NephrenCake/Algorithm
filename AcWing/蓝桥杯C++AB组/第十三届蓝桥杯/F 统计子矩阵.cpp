@@ -15,7 +15,7 @@ int main() {
         for (int j = 1; j <= m; j++) {
             cin >> A[i][j];
             A[i][j] = A[i][j] + A[i - 1][j] + A[i][j - 1] - A[i - 1][j - 1];
-        }  // 前缀和
+        }  // ǰ׺��
 
     for (int w = 1; w <= n; w++)
         for (int h = 1; h <= m; h++)
