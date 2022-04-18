@@ -14,22 +14,25 @@ unordered_map<char, char> convert{
         {'O', 'o'},
 };
 int n, cnt;
-PSS lists[N];
-vector<int> idx;
+vector<PSS> lists;
+
+string change(string pwd) {
+    for (auto& c: pwd)
+        if (convert.find(c) != convert.end())
+            c = convert[c];
+    return pwd;
+}
 
 int main() {
     cin >> n;
     for (int i = 0; i < n; i++) {
-        cin >> lists[i].first >> lists[i].second;
-        bool changed = false;
-        for (auto& c: lists[i].second)
-            if (convert.find(c) != convert.end()) {
-                c = convert[c];
-                changed = true;
-            }
-        if (changed) {
+        string name, pwd;
+        cin >> name >> pwd;
+        string pwd2 = change(pwd);
+
+        if (pwd2 != pwd) {
             cnt++;
-            idx.push_back(i);
+            lists.push_back({name, pwd2});
         }
     }
 
@@ -40,7 +43,7 @@ int main() {
     }
     cout << cnt << endl;
     for (int i = 0; i < cnt; i++) {
-        cout << lists[idx[i]].first << " " << lists[idx[i]].second;
+        cout << lists[i].first << " " << lists[i].second;
         if (i != cnt - 1) cout << endl;
     }
 }
