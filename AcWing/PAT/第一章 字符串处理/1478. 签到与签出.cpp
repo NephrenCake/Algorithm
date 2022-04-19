@@ -1,12 +1,12 @@
 #include <bits/stdc++.h>
 
+using namespace std;
+
 // https://www.acwing.com/problem/content/1480/
 
 /**
  * tip: 也可以直接只维护最小in和最大out
  */
-
-using namespace std;
 
 struct P {
     string id;

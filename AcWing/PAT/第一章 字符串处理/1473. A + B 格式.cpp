@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 
-// https://www.acwing.com/problem/content/1475/
-
 using namespace std;
+
+// https://www.acwing.com/problem/content/1475/
 
 int main() {
     int a, b;
