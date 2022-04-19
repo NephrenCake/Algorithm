@@ -4,6 +4,10 @@ using namespace std;
 
 // https://www.acwing.com/problem/content/1505/
 
+/**
+ * ∑≈¡À
+ */
+
 struct Person {
     int arrive_time, play_time;
     int start_time, waiting_time;
