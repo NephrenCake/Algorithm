@@ -118,7 +118,7 @@ int main() {
 
         if (end_time >= 21 * 3600) break;
 
-        // 第2种情况， vip球员已经到了，空余的是vip球桌 安排
+        // 唯一的特殊情况，vip球员已经到，并且vip球桌空余
         if (vp.arrive_time <= end_time && vt.end_time == end_time)
             assign(vip_persons, vip_tables);
             // 正常情况，要么有vip球员无vip球桌，要么有vip球桌无vip球员
