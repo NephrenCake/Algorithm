@@ -18,10 +18,10 @@ public:
     }
 
     int partition_ACWing(vector<int> &a, int l, int r) {
-        int i = l - 1, j = r + 1, p = a[(l + r) >> 1];
+        int i = l - 1, j = r + 1, x = a[(l + r) >> 1];
         while (i < j) {
-            do i++; while (a[i] < p);
-            do j--; while (a[j] > p);
+            do i++; while (a[i] < x);
+            do j--; while (a[j] > x);
             if (i < j) swap(a[i], a[j]);
         }
         return j;
