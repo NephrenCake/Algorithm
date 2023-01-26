@@ -11,7 +11,7 @@ int main() {
 
     for (int i = 1; i <= n; i++) {  // 前i个数且以a[i]为结尾的最长上升子序列的长度
         f[i] = 1;
-        for (int j = 1; j <= i; j++)
+        for (int j = 1; j < i; j++)
             if (a[i] > a[j])
                 f[i] = max(f[i], f[j] + 1);
         // cout << f[i] << " ";
