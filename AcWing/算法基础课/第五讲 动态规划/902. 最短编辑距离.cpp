@@ -8,7 +8,11 @@ string a, b;
 
 int main() {
     cin >> n >> a >> m >> b;
+    a = " " + a;
+    b = " " + b;
 
+    for (int i = 1; i <= n; i++) f[i][0] = i;
+    for (int i = 1; i <= m; i++) f[0][i] = i;
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= m; j++) {
             // f[i][j] a的1~i子串变成b的1~j子串，至少需要进行的次数
