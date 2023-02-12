@@ -4,11 +4,11 @@ using namespace std;
 
 int a, b;
 
-int invert(int n) {
+int invert(int x) {
     int res = 0;
-    while (n) {
-        res = res * 10 + n % 10;
-        n /= 10;
+    while (x) {
+        res = res * 10 + x % 10;
+        x /= 10;
     }
     return res;
 }
@@ -25,26 +25,19 @@ int main() {
 //
 // using namespace std;
 //
-// int a, b;
+// string a, b;
 //
-// string invert(string str) {
-//     unsigned int len = str.size();
-//     for (int i = 0; i < len / 2; i++) {
-//         char t = str[len - 1 - i];
-//         str[len - 1 - i] = str[i];
-//         str[i] = t;
-//     }
-//     return str;
-// }
-//
-// void sol() {
-//     int c = stoi(invert(to_string(a + b)));
-//     int d = stoi(invert(to_string(a))) + stoi(invert(to_string(b)));
-//     if (c == d) cout << a + b << endl;
-//     else cout << "NO" << endl;
+// string invert(string x) {
+//     for (int i = 0, j = x.size() - 1; i < x.size() / 2; i++, j--)
+//         swap(x[i], x[j]);
+//     return x;
 // }
 //
 // int main() {
-//     while (cin >> a >> b)
-//         sol();
+//     while (cin >> a >> b) {
+//         int x = stoi(invert(a)) + stoi(invert(b));
+//         int y = stoi(invert(to_string(stoi(a) + stoi(b))));
+//         if (x == y) cout << stoi(a) + stoi(b) << endl;
+//         else cout << "NO" << endl;
+//     }
 // }

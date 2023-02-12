@@ -2,39 +2,30 @@
 
 using namespace std;
 
-#define x first
-#define y second
-typedef pair<int, int> point;
+int g[6][6], x1, y1, x2, y2, used[7][7], ans = 0x3f3f3f3f;
+int dx[] = {0, 0, 1, -1}, dy[] = {1, -1, 0, 0};
 
-int ans = 0x3f3f3f3f, a[6][6], dx[] = {0, 0, -1, 1}, dy[] = {-1, 1, 0, 0};
-bool used[6][6];
-point s, e;
-
-void dfs(int sum, int st, point cur) {
-    if (sum > ans)
-        return;
-    if (cur.x == e.x && cur.y == e.y) {
-        ans = min(ans, sum);
+void dfs(int cx, int cy, int cost, int st) {
+    if (cost > ans) return;
+    if (cx == x2 && cy == y2) {
+        ans = cost;
         return;
     }
 
-    used[cur.x][cur.y] = true;
+    used[cx][cy] = 1;
     for (int i = 0; i < 4; i++) {
-        int nx = cur.x + dx[i], ny = cur.y + dy[i];
-        if (0 <= nx && nx <= 5 && 0 <= ny && ny <= 5 && !used[nx][ny]) {
-            int cost = a[nx][ny] * st;
-            dfs(sum + cost, cost % 4 + 1, {nx, ny});
-        }
+        int nx = cx + dx[i], ny = cy + dy[i];
+        if (0 <= nx && nx <= 5 && 0 <= ny && ny <= 5 && !used[nx][ny])
+            dfs(nx, ny, cost + st * g[nx][ny], st * g[nx][ny] % 4 + 1);
     }
-    used[cur.x][cur.y] = false;
+    used[cx][cy] = 0;
 }
 
 int main() {
-    for (int i = 0; i <= 5; i++)
-        for (int j = 0; j <= 5; j++)
-            cin >> a[i][j];
-    cin >> s.x >> s.y >> e.x >> e.y;
-
-    dfs(0, 1, s);
+    for (int i = 0; i < 6; i++)
+        for (int j = 0; j < 6; j++)
+            cin >> g[i][j];
+    cin >> x1 >> y1 >> x2 >> y2;
+    dfs(x1, y1, 0, 1);
     cout << ans;
 }

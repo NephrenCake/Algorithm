@@ -14,17 +14,15 @@ VI add(VI &a, VI &b) {
         c.push_back(t % 10);
         t /= 10;
     }
-    if (t) c.push_back(t);
+    if (t) c.push_back(t % 10);
     return c;
 }
 
 bool lt(VI &a, VI &b) {
-    if (a.size() < b.size())
-        return true;
-    if (a.size() == b.size())
-        for (int i = a.size() - 1; i >= 0; i--)
-            if (a[i] != b[i])
-                return a[i] < b[i];
+    if (a.size() != b.size()) return a.size() < b.size();
+    for (int i = a.size() - 1; i >= 0; i--)
+        if (a[i] != b[i])
+            return a[i] < b[i];
     return false;
 }
 
@@ -33,7 +31,7 @@ VI sub(VI &a, VI &b) {
         return sub(b, a);
     VI c;
     int t = 0;
-    for (int i = 0; i <= a.size(); i++) {
+    for (int i = 0; i < a.size(); i++) {
         t += a[i];
         if (i < b.size()) t -= b[i];
         c.push_back((t + 10) % 10);
@@ -58,6 +56,13 @@ VI mul(VI &a, VI &b) {
     return c;
 }
 
+void printVI(VI &a, bool neg) {
+    if (neg) cout << '-';
+    for (int i = a.size() - 1; i >= 0; i--)
+        cout << a[i];
+    cout << endl;
+}
+
 int main() {
     string s1, s2;
     cin >> s1 >> s2;
@@ -69,63 +74,31 @@ int main() {
 
     if (s1[0] != '-' && s2[0] != '-') {
         c = add(a, b);
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, false);
         c = sub(a, b);
-        if (lt(a, b)) cout << "-";
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, lt(a, b));
         c = mul(a, b);
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, false);
     } else if (s1[0] != '-' && s2[0] == '-') {
-        if (lt(a, b)) cout << "-";
         c = sub(a, b);
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, lt(a, b));
         c = add(a, b);
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, false);
         c = mul(a, b);
-        cout << "-";
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, true);
     } else if (s1[0] == '-' && s2[0] != '-') {
-        if (lt(b, a)) cout << "-";
         c = sub(b, a);
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, lt(b, a));
         c = add(a, b);
-        cout << "-";
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, true);
         c = mul(a, b);
-        cout << "-";
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, true);
     } else if (s1[0] == '-' && s2[0] == '-') {
         c = add(a, b);
-        cout << "-";
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
-        if (lt(b, a)) cout << "-";
+        printVI(c, true);
         c = sub(b, a);
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, lt(b, a));
         c = mul(a, b);
-        for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-        cout << endl;
-
+        printVI(c, false);
     }
 }
