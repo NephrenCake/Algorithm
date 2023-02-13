@@ -1,10 +1,10 @@
 #include <iostream>
-#include <map>
+#include <unordered_map>
 
 using namespace std;
 
 int days[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-map<string, int> mp = {
+unordered_map<string, int> mp = {
         {"January",   1},
         {"February",  2},
         {"March",     3},

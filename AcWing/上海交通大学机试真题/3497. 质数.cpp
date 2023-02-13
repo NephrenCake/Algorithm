@@ -1,19 +1,15 @@
 #include <iostream>
-#include <vector>
-#include <set>
 
 using namespace std;
 
 const int N = 1e6;
-int k;
-vector<int> primes;
-set<int> used;
+int k, used[N], primes[N], cnt;
 
 void get_primes() {
-    for (int i = 2; primes.size() <= 10000; i++) {
-        if (used.find(i) == used.end()) primes.push_back(i);
+    for (int i = 2; i < N; i++) {
+        if (!used[i]) primes[cnt++] = i;
         for (int j = 0; primes[j] < N / i; j++) {
-            used.insert(primes[j] * i);
+            used[i * primes[j]] = 1;
             if (i % primes[j] == 0) break;
         }
     }
@@ -21,6 +17,5 @@ void get_primes() {
 
 int main() {
     get_primes();
-    while (cin >> k)
-        cout << primes[k - 1] << endl;
+    while (cin >> k) cout << primes[k - 1] << endl;
 }
