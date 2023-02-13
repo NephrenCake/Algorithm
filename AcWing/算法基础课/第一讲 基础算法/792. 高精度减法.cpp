@@ -4,36 +4,38 @@
 using namespace std;
 
 typedef vector<int> VI;
-string as, bs;
-VI a, b, c;
 
-bool cmp(string A, string B) {
-    if (A.size() != B.size())
-        return A.size() > B.size();
-    else return A >= B;
+bool lt(VI &a, VI &b) {
+    if (a.size() != b.size()) return a.size() < b.size();
+    for (int i = a.size() - 1; i >= 0; i--)
+        if (a[i] != b[i])
+            return a[i] < b[i];
+    return false;
 }
 
-void sub(VI &A, VI &B, VI &C) {
+VI sub(VI &a, VI &b) {
+    if (lt(a, b))
+        return sub(b, a);
+    VI c;
     int t = 0;
-    for (int i = 0; i < max(A.size(), B.size()); i++) {
-        t = A[i] - t;
-        if (i < B.size()) t -= B[i];
-        C.push_back((t + 10) % 10);
-        t = t < 0;
+    for (int i = 0; i < a.size(); i++) {
+        t += a[i];
+        if (i < b.size()) t -= b[i];
+        c.push_back((t + 10) % 10);
+        t = t < 0 ? -1 : 0;
     }
-    while (C.size() > 1 && C[C.size() - 1] == 0) C.pop_back();
+    while (c.size() > 1 && c.back() == 0) c.pop_back();
+    return c;
 }
 
 int main() {
-    cin >> as >> bs;
-    for (int i = as.size() - 1; i >= 0; i--) a.push_back(as[i] - '0');
-    for (int i = bs.size() - 1; i >= 0; i--) b.push_back(bs[i] - '0');
+    string s1, s2;
+    VI a, b, c;
+    cin >> s1 >> s2;
+    for (int i = s1.size() - 1; i >= 0; i--) a.push_back(s1[i] - '0');
+    for (int i = s2.size() - 1; i >= 0; i--) b.push_back(s2[i] - '0');
 
-    if (cmp(as, bs))
-        sub(a, b, c);
-    else {
-        sub(b, a, c);
-        cout << "-";
-    }
+    c = sub(a, b);
+    if (lt(a, b)) cout << "-";
     for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
 }

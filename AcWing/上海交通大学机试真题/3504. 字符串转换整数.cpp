@@ -2,27 +2,22 @@
 
 using namespace std;
 
-int ans;
-string str;
-bool start;
+long long ans, flag;
+string s;
 
 int main() {
-    cin >> str;
-    for (int i = 0; i < str.size(); i++)
-        if (str[i] >= '0' && str[i] <= '9') {
-            if (!start)
-                start = true;
-            if (ans <= (INT32_MAX - (str[i] - '0')) / 10)
-                ans = ans * 10 + (str[i] - '0');
-            else {
-                cout << "-1";
-                return 0;
+    cin >> s;
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] <= '9' && '0' <= s[i]) {
+            flag = 1;
+            ans = ans * 10 + s[i] - '0';
+            if (ans > INT32_MAX) {
+                ans = -1;
+                break;
             }
-        } else if (start)
-            break;
-    if (!start)
-        cout << "-1";
-    else
-        cout << ans;
-    return 0;
+        } else
+        if (flag) break;
+    }
+    if (flag) cout << ans;
+    else cout << -1;
 }

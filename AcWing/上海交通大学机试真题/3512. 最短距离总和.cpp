@@ -10,6 +10,8 @@ int main() {
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
             cin >> f[i][j];
+
+    // f[k][i][j] 以k~n节点为中间节点，i到j的最短距离
     for (int k = n; k >= 2; k--) {
         for (int i = 1; i <= n; i++)
             for (int j = i; j <= n; j++) {

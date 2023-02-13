@@ -6,31 +6,30 @@ typedef long long LL;
 const int N = 100010;
 int n, a[N], t[N];
 
-LL mergeSort(int l, int r) {
+LL sort(int l, int r) {
     if (l == r) return 0;
 
     int m = (l + r) / 2;
-    LL res = mergeSort(l, m) + mergeSort(m + 1, r);
+    LL res = sort(l, m) + sort(m + 1, r);
 
-    int i = l, j = m + 1, k = 0;
-    while (i <= m && j <= r) {
-        if (a[i] <= a[j])
-            t[k++] = a[i++];
-        else {
-            t[k++] = a[j++];
-            res += m - i + 1;
+    int p = l, q = m + 1, k = 0;
+    while (p <= m && q <= r) {
+        if (a[p] <= a[q]) {
+            t[k++] = a[p++];
+        } else {
+            t[k++] = a[q++];
+            res += m - p + 1;
         }
     }
-    while (i <= m) t[k++] = a[i++];
-    while (j <= r) t[k++] = a[j++];
-
-    for (int i = 0; i < k; i++) a[l++] = t[i];
+    while (p <= m) t[k++] = a[p++];
+    while (q <= r) t[k++] = a[q++];
+    while (k) a[r--] = t[--k];
     return res;
 }
 
 int main() {
     cin >> n;
-    for (int i = 0; i < n; i++) cin >> a[i];
+    for (int i = 1; i <= n; i++) cin >> a[i];
 
-    cout << mergeSort(0, n - 1) << endl;
+    cout << sort(1, n);
 }

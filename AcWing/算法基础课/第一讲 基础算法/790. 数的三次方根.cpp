@@ -2,14 +2,13 @@
 
 using namespace std;
 
-double n;
+double l = -10000, r = 10000, m, tar;
 
 int main() {
-    cin >> n;
-    double l = -10000, r = 10000, m;
+    cin >> tar;
     while (l + 1e-8 < r) {
         m = (l + r) / 2;
-        if (m * m * m < n) l = m;
+        if (m * m * m < tar) l = m;
         else r = m;
     }
     printf("%.6f", r);

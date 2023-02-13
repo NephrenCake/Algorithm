@@ -11,7 +11,7 @@ void sort(int l, int r) {
     int i = l - 1, j = r + 1, x = a[(l + r) / 2];
     while (i < j) {
         do i++; while (a[i] < x);
-        do j--; while (a[j] > x);
+        do j--; while (x < a[j]);
         if (i < j) {
             int t = a[i];
             a[i] = a[j];

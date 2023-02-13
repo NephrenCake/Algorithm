@@ -16,14 +16,13 @@ void sort(int l, int r) {
     while (p <= m && q <= r) t[k++] = a[p] < a[q] ? a[p++] : a[q++];
     while (p <= m) t[k++] = a[p++];
     while (q <= r) t[k++] = a[q++];
-
-    for (int i = 0; i < k; i++) a[l++] = t[i];
+    while (k) a[r--] = t[--k];
 }
 
 int main() {
     cin >> n;
-    for (int i = 0; i < n; i++) cin >> a[i];
+    for (int i = 1; i <= n; i++) cin >> a[i];
 
-    sort(0, n - 1);
-    for (int i = 0; i < n; i++) cout << a[i] << " ";
+    sort(1, n);
+    for (int i = 1; i <= n; i++) cout << a[i] << " ";
 }

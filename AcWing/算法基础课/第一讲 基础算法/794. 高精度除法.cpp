@@ -4,27 +4,27 @@
 using namespace std;
 
 typedef vector<int> VI;
-string as;
-VI a, c;
-int b, r;
 
-void div(VI &A, int B, VI &C, int &R) {
-    int t = 0;
-    C = A;
-    for (int i = A.size() - 1; i >= 0; i--) {
-        t = t * 10 + A[i];
-        C[i] = t / B;
-        t %= B;
+VI div(VI &a, int b, int &r) {
+    VI c = VI(a.size(), 0);
+    r = 0;
+    for (int i = a.size() - 1; i >= 0; i--) {
+        r = r * 10 + a[i];
+        c[i] = r / b;
+        r %= b;
     }
-    while (C.size() > 1 && C[C.size() - 1] == 0) C.pop_back();
-    R = t;
+    while (c.size() > 1 && c.back() == 0) c.pop_back();
+    return c;
 }
 
 int main() {
-    cin >> as >> b;
-    for (int i = as.size() - 1; i >= 0; i--) a.push_back(as[i] - '0');
+    string s1;
+    int b, d;
+    VI a, c;
+    cin >> s1 >> b;
+    for (int i = s1.size() - 1; i >= 0; i--) a.push_back(s1[i] - '0');
 
-    div(a, b, c, r);
+    c = div(a, b, d);
     for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-    cout << endl << r;
+    cout << endl << d;
 }

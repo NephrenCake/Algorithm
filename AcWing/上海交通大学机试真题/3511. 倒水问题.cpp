@@ -1,40 +1,43 @@
 #include <iostream>
-#include <cstring>
+#include <set>
 
 using namespace std;
 
-const int N = 4010;
-int A, B, C, ans, x;
-bool used[N], st[N][N];
+set<pair<int, int>> used;
+set<int> ans;
+int A, B, C;
 
 void dfs(int a, int b, int c) {
-    if (st[a][b]) return;
-    st[a][b] = true;
-    if (!used[c]) {
-        used[c] = true;
-        ans++;
-    }
+    if (used.find({a, b}) != used.end()) return;
+    used.insert({a, b});
+    if (ans.find(c) == ans.end()) ans.insert(c);
 
-    x = min(a, B - b);  // a -> b
-    dfs(a - x, b + x, c);
-    x = min(a, C - c);  // a -> c
-    dfs(a - x, b, c + x);
-    x = min(A - a, b);  // b -> a
-    dfs(a + x, b - x, c);
-    x = min(C - c, b);  // b -> c
-    dfs(a, b - x, c + x);
-    x = min(A - a, c);  // c -> a
-    dfs(a + x, b, c - x);
-    x = min(B - b, c);  // c -> b
-    dfs(a, b + x, c - x);
+    int d;
+    // a -> b
+    d = min(a, B - b);
+    dfs(a - d, b + d, c);
+    // b -> a
+    d = min(b, A - a);
+    dfs(a + d, b - d, c);
+    // a -> c
+    d = min(a, C - c);
+    dfs(a - d, b, c + d);
+    // c -> a
+    d = min(c, A - a);
+    dfs(a + d, b, c - d);
+    // b -> c
+    d = min(b, C - c);
+    dfs(a, b - d, c + d);
+    // c -> b
+    d = min(c, B - b);
+    dfs(a, b + d, c - d);
 }
 
 int main() {
     while (cin >> A >> B >> C) {
-        ans = 0;
-        memset(used, false, sizeof used);
-        memset(st, false, sizeof st);
+        used.clear();
+        ans.clear();
         dfs(0, 0, C);
-        cout << ans;
+        cout << ans.size() << endl;
     }
 }

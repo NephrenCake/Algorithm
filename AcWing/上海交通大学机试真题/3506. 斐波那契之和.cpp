@@ -1,31 +1,33 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-int fib[50] = {1, 1}, n = 2;
-long long sum[50] = {1, 2};
-int ans, tar;
+int n, ans;
+vector<long long> fib, s;
 
-void dfs(int cur, int idx) {
-    if (cur > tar) return;
-    if (idx == 0) {
-        if (cur == tar) ans++;
+void dfs(int idx, int sum) {
+    if (sum == n) {
+        ans++;
         return;
     }
+    if (idx == 0) return;
 
-    dfs(cur + fib[idx], idx - 1);
-    if (cur + sum[idx - 1] >= tar)
-        dfs(cur, idx - 1);
+    if (sum + fib[idx] <= n)
+        dfs(idx - 1, sum + fib[idx]);
+    if (sum + s[idx - 1] >= n)
+        dfs(idx - 1, sum);
 }
 
 int main() {
-    while (fib[n - 1] < 100000000) {
-        fib[n] = fib[n - 1] + fib[n - 2];
-        sum[n] = sum[n - 1] + fib[n];
-        n++;
-    }
+    cin >> n;
+    fib.push_back(1);
+    fib.push_back(1);
+    s.push_back(1);
+    s.push_back(2);
+    for (int i = 2; fib[i - 1] <= 1e8 - fib[i - 2]; i++)
+        fib.push_back(fib[i - 1] + fib[i - 2]), s.push_back(fib[i] + s[i - 1]);
 
-    cin >> tar;
-    dfs(0, n - 1);
+    dfs(fib.size() - 1, 0);
     cout << ans;
 }
