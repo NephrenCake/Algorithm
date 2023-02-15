@@ -9,7 +9,7 @@ int n, x;
 
 int main() {
     cin >> n;
-    while (n--, cin >> op >> x) {
+    while (n-- && cin >> op >> x) {
         if (op == "I") s.insert(x);
         else
             if (s.find(x) != s.end())

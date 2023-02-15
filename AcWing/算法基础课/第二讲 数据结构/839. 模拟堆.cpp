@@ -32,7 +32,7 @@ void up(int i) {
 
 int main() {
     cin >> n;
-    while (n--, cin >> op) {
+    while (n-- && cin >> op) {
         if (op == "I") {
             cin >> x;
             h[++tt] = x;

@@ -12,13 +12,17 @@ int main() {
     b = " " + b;
 
     for (int i = 1; i <= n; i++) f[i][0] = i;
-    for (int i = 1; i <= m; i++) f[0][i] = i;
+    for (int j = 1; j <= m; j++) f[0][j] = j;
+    // f[i][j] a串1~i，b串1~j且以b[j]结尾，的最短编辑距离
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= m; j++) {
-            // f[i][j] a的1~i子串变成b的1~j子串，至少需要进行的次数
-            // 最后一步是增加最后一个字母 | 最后一步是删除最后一个字母 | 最后一步是修改最后一个字母
-            f[i][j] = min(f[i - 1][j], f[i][j - 1]) + 1;
-            f[i][j] = min(f[i][j], f[i - 1][j - 1] + (a[i] != b[j]));
+            if (a[i] == b[j]) f[i][j] = f[i - 1][j - 1];
+            else {
+                f[i][j] = f[i - 1][j - 1];
+                f[i][j] = min(f[i][j], f[i - 1][j]);
+                f[i][j] = min(f[i][j], f[i][j - 1]);
+                f[i][j]++;
+            }
         }
     cout << f[n][m];
 }

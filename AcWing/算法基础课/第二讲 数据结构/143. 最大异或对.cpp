@@ -3,38 +3,30 @@
 using namespace std;
 
 const int N = 1e5 + 10;
-int n, a[N], ans, son[31 * N][2], idx;
+int n, a[N], ans, ne[31 * N][2], idx = 1;
 
-void insert(int num) {
+int insert(int x) {
     int p = 0;
     for (int i = 30; i >= 0; i--) {
-        int u = num >> i & 1;
-        if (son[p][u] == 0) son[p][u] = ++idx;
-        p = son[p][u];
+        int ch = x >> i & 1;
+        if (ne[p][ch] == 0) ne[p][ch] = idx++;
+        p = ne[p][ch];
     }
 }
 
-int query(int num) {
+int query(int x) {
     int p = 0, res = 0;
     for (int i = 30; i >= 0; i--) {
-        int u = num >> i & 1;
-        if (son[p][!u] != 0) {
-            res = (res << 1) + 1;
-            p = son[p][!u];
-        } else {
-            res = (res << 1);
-            p = son[p][u];
-        }
+        int ch = x >> i & 1;
+        if (ne[p][!ch] != 0) p = ne[p][!ch], res += 1 << i;
+        else p = ne[p][ch];
     }
     return res;
 }
 
 int main() {
     cin >> n;
-    for (int i = 0; i < n; i++)
-        cin >> a[i], insert(a[i]);
-
-    for (int i = 0; i < n; i++)
-        ans = max(ans, query(a[i]));
+    for (int i = 1; i <= n; i++) cin >> a[i], insert(a[i]);
+    for (int i = 1; i <= n; i++) ans = max(ans, query(a[i]));
     cout << ans;
 }

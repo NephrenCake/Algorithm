@@ -1,8 +1,9 @@
 #include <iostream>
+
 using namespace std;
 
-const int N = 1010;
-int n, m, v, w, f[N];
+const int N = 1010, M = 1010;
+int n, m, v, w, f[M];
 
 int main() {
     cin >> n >> m;

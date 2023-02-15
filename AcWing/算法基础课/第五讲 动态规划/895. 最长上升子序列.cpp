@@ -3,21 +3,18 @@
 using namespace std;
 
 const int N = 1010;
-int n, a[N], f[N];
+int n, a[N], f[N], ans;
 
 int main() {
     cin >> n;
-    for (int i = 1; i <= n; i++) cin >> a[i];
-
-    for (int i = 1; i <= n; i++) {  // 前i个数且以a[i]为结尾的最长上升子序列的长度
+    // f[i] 前1~i个字母并且以i结尾的单增子序列长度
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
         f[i] = 1;
         for (int j = 1; j < i; j++)
-            if (a[i] > a[j])
+            if (a[j] < a[i])
                 f[i] = max(f[i], f[j] + 1);
-        // cout << f[i] << " ";
+        ans = max(ans, f[i]);
     }
-
-    int res = 0;
-    for (int i = 1; i <= n; i++) res = max(res, f[i]);
-    cout << res;
+    cout << ans;
 }

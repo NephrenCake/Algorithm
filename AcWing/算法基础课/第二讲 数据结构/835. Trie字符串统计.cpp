@@ -2,36 +2,35 @@
 
 using namespace std;
 
-const int N = 100010;
-int son[N][26], cnt[N], idx;
+const int N = 2e5 + 10;
+string s, x;
+int n, ne[N][26], cnt[N], idx = 1;  // 0既是根节点，又是空节点。ne就是next指针，每个节点最多有26个孩子
 
-void insert(string str) {
-    int p = 0;  // 类似指针，指向当前节点
-    for (int i = 0; i < str.size(); i++) {
-        int u = str[i] - 'a'; // 将字母转化为数字
-        if (!son[p][u]) son[p][u] = ++idx;   // 该节点不存在，创建节点
-        p = son[p][u];  // 使“p指针”指向下一个节点
+void insert(string x) {
+    int cur = 0;
+    for (auto c: x) {
+        int ch = c - 'a';
+        if (ne[cur][ch] == 0) ne[a][b] = idx++;
+        cur = ne[cur][ch];
     }
-    cnt[p]++;  // 结束时的标记，也是记录以此节点结束的字符串个数
+    cnt[cur]++;
 }
 
-int query(string str) {
-    int p = 0;
-    for (int i = 0; i < str.size(); i++) {
-        int u = str[i] - 'a';
-        if (!son[p][u]) return 0;  // 该节点不存在，即该字符串不存在
-        p = son[p][u];
+int query(string x) {
+    int cur = 0;
+    for (auto c: x) {
+        int ch = c - 'a';
+        if (ne[cur][ch] == 0) return 0;
+        cur = ne[cur][ch];
     }
-    return cnt[p];  // 返回字符串出现的次数
+    return cnt[cur];
 }
 
 int main() {
-    int m;
-    string str, op;
-    cin >> m;
-    while (m--) {
-        cin >> op >> str;
-        if (op == "I") insert(str);
-        else cout << query(str) << endl;
+    cin >> n;
+    while (n--) {
+        cin >> s >> x;
+        if (s == "I") insert(x);
+        else cout << query(x) << endl;
     }
 }

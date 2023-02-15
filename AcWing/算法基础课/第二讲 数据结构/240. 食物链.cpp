@@ -17,9 +17,7 @@ int find(int x) {
 int main() {
     int n, k;
     cin >> n >> k;
-    for (int i = 1; i <= n; i++)
-        p[i] = i;
-
+    for (int i = 1; i <= n; i++) p[i] = i;
     while (k--) {
         int t, a, b;
         cin >> t >> a >> b;
