@@ -3,21 +3,21 @@
 using namespace std;
 
 const int N = 100010;
-int n, m, a[N], b[N], l, r, c;
+int n, m, a[N];
+
+void add(int l, int r, int c) {
+    a[l] += c, a[r + 1] -= c;
+}
 
 int main() {
     cin >> n >> m;
-    for (int i = 1; i <= n; i++) {
-        cin >> a[i];
-        b[i] = a[i] - a[i - 1];
-    }
-
+    for (int i = 1, t; i <= n; i++)
+        cin >> t, add(i, i, t);
     while (m--) {
+        int l, r, c;
         cin >> l >> r >> c;
-        b[l] += c, b[r + 1] -= c;
+        add(l, r, c);
     }
-    for (int i = 1; i <= n; i++) {
-        b[i] = b[i] + b[i - 1];
-        cout << b[i] << " ";
-    }
+    for (int i = 1; i <= n; i++)
+        a[i] += a[i - 1], cout << a[i] << " ";
 }

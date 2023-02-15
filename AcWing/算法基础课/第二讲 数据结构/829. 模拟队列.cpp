@@ -6,20 +6,20 @@ const int N = 1e5 + 10;
 int q[N], hh = 0, tt = -1;
 
 int main() {
-    int m, x;
-    string c;
-    cin >> m;
-    while (m--) {
-        cin >> c;
-        if (c == "push") {
+    string s;
+    int n, x;
+    cin >> n;
+    while (n--) {
+        cin >> s;
+        if (s == "push") {
             cin >> x;
             q[++tt] = x;
-        } else if (c == "pop") {
+        } else if (s == "pop") {
             hh++;
-        } else if (c == "empty") {
-            if (hh > tt) cout << "YES" << endl;
-            else cout << "NO" << endl;
-        } else if (c == "query") {
+        } else if (s == "empty") {
+            if (hh <= tt) cout << "NO" << endl;
+            else cout << "YES" << endl;
+        } else if (s == "query") {
             cout << q[hh] << endl;
         }
     }

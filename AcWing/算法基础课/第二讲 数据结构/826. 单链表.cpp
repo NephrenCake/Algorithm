@@ -2,44 +2,39 @@
 
 using namespace std;
 
-const int N = 100010;
-int head = -1, e[N], ne[N], idx;
+const int N = 1e5 + 10;
+int h, e[N], ne[N], idx = 1;  // h为头指针，0值表示空节点，idx表示从1开始分配空间
 
-// 向链表头插入一个数 x
-void add(int x) {
-    e[idx] = x, ne[idx] = head, head = idx++;
+void add(int x) {  // 头插法，将导致头指针改变
+    e[idx] = x, ne[idx] = h, h = idx++;
 }
 
-void insert(int k, int x) {
-    e[idx] = x, ne[idx] = ne[k - 1], ne[k - 1] = idx++;
+void del(int k) {  // 删除第k个插入的数后面的数
+    if (k == 0) h = ne[h];
+    else ne[k] = ne[ne[k]];
 }
 
-void del(int k) {
-    if (k == 0) head = ne[head];
-    else ne[k - 1] = ne[ne[k - 1]];
+void insert(int k, int x) {  // 在第k个插入的数后面插入x
+    e[idx] = x, ne[idx] = ne[k], ne[k] = idx++;
 }
 
 int main() {
-    int m, a, b;
-    char c;
-    cin >> m;
-    while (m--) {
-        cin >> c;
-        switch (c) {
-            case 'H':
-                cin >> a;
-                add(a);
-                break;
-            case 'I':
-                cin >> a >> b;
-                insert(a, b);
-                break;
-            case 'D':
-                cin >> a;
-                del(a);
-                break;
+    string s;
+    int n, x, k;
+    cin >> n;
+    while (n--) {
+        cin >> s;
+        if (s == "H") {
+            cin >> x;
+            add(x);
+        } else if (s == "D") {
+            cin >> k;
+            del(k);
+        } else if (s == "I") {
+            cin >> k >> x;
+            insert(k, x);
         }
     }
-    for (int i = head; i != -1; i = ne[i])
+    for (int i = h; i; i = ne[i])
         cout << e[i] << " ";
 }

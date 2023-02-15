@@ -1,51 +1,27 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 
 using namespace std;
 
-typedef pair<int,int> PII;
-const int N = 300010;
-int n, m, s[N];
-vector<int> all;
-vector<PII> a, q;
+const int N = 1e5 + 10;
+int n, m, all[3 * N], a[3 * N], cnt, x[N], c[N], l[N], r[N];  // all现数组下标->原数组下标 a现数组前缀和
 
 int find(int tar) {
-    int l = 0, r = all.size() - 1, m;
+    int l = -1, r = cnt, m;
     while (l < r) {
-        m = (l + r) / 2;
-        if (tar <= all[m]) r = m;
-        else l = m + 1;
+        m = (l + r + 1) / 2;
+        if (all[m] < tar) l = m;
+        else r = m - 1;
     }
-    return r + 1;
+    return r + 1;  // 找到第一个大于等于x的位置
 }
 
-int main() {
+int main()  {
     cin >> n >> m;
-    while (n--) {
-        int x, c;
-        cin >> x >> c;
-        a.push_back({x, c});
-        all.push_back(x);
-    }
-    while (m--) {
-        int l, r;
-        cin >> l >> r;
-        q.push_back({l, r});
-        all.push_back(l);
-        all.push_back(r);
-    }
-
-    sort(all.begin(), all.end());
-    all.erase(unique(all.begin(), all.end()), all.end());
-
-    for (int i = 0; i < a.size(); i++)
-        s[find(a[i].first)] += a[i].second;
-
-    for (int i = 1; i <= all.size(); i++)
-        s[i] += s[i - 1];
-
-    for (int i = 0; i < q.size(); i++)
-        cout << s[find(q[i].second)] - s[find(q[i].first) - 1] << endl;
+    for (int i = 0; i < n; i++) cin >> x[i] >> c[i], all[++cnt] = x[i];  // 1. 记录输入信息和所有出现过的点
+    for (int i = 0; i < m; i++) cin >> l[i] >> r[i], all[++cnt] = l[i], all[++cnt] = r[i];
+    sort(all + 1, all + 1 + cnt);  // 2. 存储下标从1开始，因为要前缀和
+    for (int i = 0; i < n; i++) a[find(x[i])] += c[i];  // 3. 在离散化数组中存储值
+    for (int i = 1; i <= cnt; i++) a[i] += a[i - 1];  // 4. 构造前缀和
+    for (int i = 0; i < m; i++) cout << a[find(r[i])] - a[find(l[i]) - 1] << endl;
 }
-

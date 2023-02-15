@@ -3,26 +3,21 @@
 
 using namespace std;
 
-typedef pair<int , int> PII;
+typedef pair<int, int> PII;
 const int N = 100010;
 int n, k;
-PII a[N], ans[N], cur = {-2e9, -2e9};
+PII a[N], ans[N], cur = {-0x3f3f3f3f, -0x3f3f3f3f};
 
 int main() {
     cin >> n;
-    for (int i = 0; i < n; i++) {
-        int l, r;
-        cin >> l >> r;
-        a[i] = {l, r};
-    }
+    for (int i = 0, l, r; i < n; i++) cin >> l >> r, a[i] = {l, r};
     sort(a, a + n);
 
     for (int i = 0; i < n; i++)
         if (cur.second < a[i].first) {
-            if (cur.first != -2e9) ans[k++] = cur;
             cur = a[i];
+            ans[k++] = cur;
         } else
             cur.second = max(cur.second, a[i].second);
-    if (cur.first != -2e9) ans[k++] = cur;
     cout << k;
 }

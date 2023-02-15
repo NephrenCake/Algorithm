@@ -6,20 +6,20 @@ const int N = 1e5 + 10;
 int stk[N], tt = -1;
 
 int main() {
-    int m, x;
-    string c;
-    cin >> m;
-    while (m--) {
-        cin >> c;
-        if (c == "push") {
+    int n, x;
+    string s;
+    cin >> n;
+    while (n--) {
+        cin >> s;
+        if (s == "push") {
             cin >> x;
             stk[++tt] = x;
-        } else if (c == "pop") {
+        } else if (s == "pop") {
             tt--;
-        } else if (c == "empty") {
-            if (tt == -1) cout << "YES" << endl;
-            else cout << "NO" << endl;
-        } else if (c == "query") {
+        } else if (s == "empty") {
+            if (tt) cout << "NO" << endl;
+            else cout << "YES" << endl;
+        } else if (s == "query") {
             cout << stk[tt] << endl;
         }
     }
