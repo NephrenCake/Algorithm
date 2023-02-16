@@ -1,41 +1,32 @@
 #include <iostream>
-#include <algorithm>
-#include <cstring>
+#include <vector>
 
 using namespace std;
 
 const int N = 6010;
-int n, happy[N], f[N][2];
-int e[N], ne[N], h[N], idx;
-bool has_father[N];
+int n, h[N], f[N][2], has_fa[N];
+vector<int> v[N];
 
-void add(int a, int b) {  // 把a插入树中
-    e[idx] = b, ne[idx] = h[a], h[a] = idx++;
-}
-
-void dfs(int u) {
-    f[u][1] = happy[u];
-    for (int i = h[u]; i != -1; i = ne[i]) {  // 遍历树
-        int j = e[i];
-        dfs(j);
-        f[u][0] += max(f[j][1], f[j][0]);
-        f[u][1] += f[j][0];
+void dfs(int cur) {
+    f[cur][1] = h[cur];
+    for (auto ch: v[cur]) {
+        dfs(ch);
+        f[cur][0] += max(f[ch][0], f[ch][1]);
+        f[cur][1] += f[ch][0];
     }
 }
 
 int main() {
     cin >> n;
-    for (int i = 1; i <= n; i++) cin >> happy[i];
+    for (int i = 1; i <= n; i++) cin >> h[i];
+    for (int i = 1, l, k; i <= n - 1; i++) cin >> l >> k, v[k].push_back(l), has_fa[l] = 1;
 
-    memset(h, -1, sizeof h);
-    for (int i = 1, a, b; i < n; i++) {
-        cin >> a >> b;  // b是a的上司
-        has_father[a] = true;
-        add(b, a);
-    }
-
-    int root = 1;
-    while (has_father[root]) root++; //找根节点
+    int root;
+    for (int i = 1; i <= n; i++)
+        if (!has_fa[i]) {
+            root = i;
+            break;
+        }
     dfs(root);
     cout << max(f[root][0], f[root][1]);
 }

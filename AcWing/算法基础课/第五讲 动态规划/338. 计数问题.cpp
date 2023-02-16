@@ -3,20 +3,23 @@
 using namespace std;
 
 // 返回10的x次方
-int power10(int x) {
-    int res = 1;
-    while (x--) res *= 10;
+int power10(int n) {
+    int t = 10, res = 1;
+    while (n) {
+        if (n & 1) res *= t;
+        t = t * t;
+        n >>= 1;
+    }
     return res;
 }
 
 unsigned long cnt(int n, int x) {
     unsigned long res = 0, cnt = to_string(n).size();
-    int l, r;
     for (int i = 1; i <= cnt; i++) {  // 从右往左依次枚举每一位上的x总数
         // 以n=abcdefg为例，假设现在i=4，即计算第四位为x的次数
         // 先计算最高三位为000~abc-1的情况
-        r = power10(i - 1);  // d右边可取到000~999共power10(i-1)个数
-        l = n / (r * 10);  // d左边可取到000~abc-1共abc=n/power10(i)=n/(r*10)种情况，当x是0则为001~abc-1共abc-1种
+        int r = power10(i - 1);  // d右边可取到000~999共power10(i-1)个数
+        int l = n / power10(i);  // d左边可取到000~abc-1共abc=n/power10(i)=n/(r*10)种情况，当x是0则为001~abc-1共abc-1种
         if (x) res += l * r;
         else res += (l - 1) * r;
 
