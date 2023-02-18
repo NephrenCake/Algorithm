@@ -1,26 +1,23 @@
 #include <iostream>
+#include <map>
 
 using namespace std;
 
-int n;
+int n, a;
 
-void divide(int a) {
-    for (int i = 2; i <= a / i; i++) {
-        if (a % i == 0) {
-            int cnt = 0;
-            while (a % i == 0) a /= i, cnt++;
-            cout << i << " " << cnt << endl;
-        }
-    }
-    if (a > 1) cout << a << " 1" << endl;
-    cout << endl;
+map<int, int> get_div(int x) {
+    map<int, int> res;
+    for (int i = 2; i <= x / i; i++)
+        while (x % i == 0) x /= i, res[i]++;
+    if (x > 1) res[x]++;
+    return res;
 }
 
 int main() {
     cin >> n;
-    while (n--) {
-        int a;
-        cin >> a;
-        divide(a);
+    while (n-- && cin >> a) {
+        for (auto [k, v]: get_div(a))
+            cout << k << " " << v << endl;
+        cout << endl;
     }
 }

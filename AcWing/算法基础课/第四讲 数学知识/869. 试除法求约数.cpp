@@ -1,29 +1,23 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <set>
 
 using namespace std;
 
-vector<int> get_divisors(int a) {
-    vector<int> ans;
-    for (int i = 1; i <= a / i; i++) {
-        if (a % i == 0) {
-            ans.push_back(i);
-            if (i != a / i)
-                ans.push_back(a / i);
-        }
-    }
-    sort(ans.begin(), ans.end());
-    return ans;
+int n, a;
+
+set<int> get_div(int x) {
+    set<int> res;
+    for (int i = 1; i <= x / i; i++)
+        if (x % i == i) res.insert(i);
+        else if (x % i == 0) res.insert(i), res.insert(x / i);
+    return res;
 }
 
 int main() {
-    int n, a;
     cin >> n;
-    while (n--) {
-        cin >> a;
-        auto ans = get_divisors(a);
-        for (int i: ans) cout << i << " ";
+    while (n-- && cin >> a) {
+        for (auto i: get_div(a))
+            cout << i << " ";
         cout << endl;
     }
 }
