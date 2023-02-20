@@ -1,35 +1,33 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
-struct P {
-    int p, d;
-};
 const int N = 1e5 + 10;
-int n, m, a, b;
+int n, m, a, b, used[N];
 vector<int> v[N];
-P q[N];
-int hh = 0, tt = -1;
-bool used[N];
+struct P {
+    int i, d;
+};
+queue<P> q;
 
 int main() {
     cin >> n >> m;
-    while (cin >> a >> b)
-        v[a].push_back(b);
+    while (m-- && cin >> a >> b) v[a].push_back(b);
 
-    q[++tt] = {1, 0};
-    while (hh <= tt) {
-        P cur = q[hh++];
-        if (cur.p == n) {
+    q.push({1, 0});
+    used[1] = 1;
+    while (!q.empty()) {
+        P cur = q.front();
+        q.pop();
+        if (cur.i == n) {
             cout << cur.d;
             return 0;
         }
-        for (auto next : v[cur.p])
-            if (!used[next]) {
-                used[next] = true;
-                q[++tt] = {next, cur.d + 1};
-            }
+        for (auto ne: v[cur.i])
+            if (!used[ne])
+                used[ne] = 1, q.push({ne, cur.d + 1});
     }
     cout << -1;
 }

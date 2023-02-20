@@ -4,30 +4,30 @@
 using namespace std;
 
 const int N = 1e5 + 10;
-int n, a, b, ans = 0x3f3f3f3f;
 vector<int> v[N];
-bool used[N];
+int n, ans = 0x3f3f3f3f;
 
-int dfs(int cur) {
-    used[cur] = true;
-    int sum = 1, res = 0;
-    for (int i : v[cur]) {
-        if (!used[i]) {
-            int t = dfs(i);
-            res = max(res, t);
-            sum += t;
+int dfs(int idx, int fa) {
+    int maxVal = 0, sum = 1;
+    for (auto ne: v[idx])
+        if (ne != fa) {
+            int ch = dfs(ne, idx);
+            maxVal = max(maxVal, ch);
+            sum += ch;
         }
-    }
-    res = max(res, n - sum);
-    ans = min(ans, res);
+    maxVal = max(maxVal, n - sum);
+    ans = min(ans, maxVal);
     return sum;
 }
 
 int main() {
     cin >> n;
-    while (cin >> a >> b)
-        v[a].push_back(b), v[b].push_back(a);
+    for (int i = 1, a, b; i < n; i++) {
+        cin >> a >> b;
+        v[a].push_back(b);
+        v[b].push_back(a);
+    }
 
-    dfs(1);
+    dfs(1, 1);
     cout << ans;
 }
