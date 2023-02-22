@@ -1,25 +1,21 @@
 #include <iostream>
-#include <vector>
 #include <cstring>
+#include <vector>
 #include <queue>
 
 using namespace std;
 
-const int N = 1e5 + 10;
+const int N = 2010;
 int n, m, dist[N], used[N], cnt[N];
 typedef pair<int, int> PII;
-#define d first
-#define p second
+#define p first
+#define d second
 vector<PII> v[N];
 queue<int> q;
 
 int main() {
     cin >> n >> m;
-    while (m--) {
-        int a, b, c;
-        cin >> a >> b >> c;
-        v[a].push_back({c, b});
-    }
+    for (int i = 1, a, b, c; i <= m; i++) cin >> a >> b >> c, v[a].push_back({b, c});
 
     memset(dist, 0x3f, sizeof dist);
     dist[1] = 0;
@@ -28,19 +24,17 @@ int main() {
         int cur = q.front();
         q.pop();
         used[cur] = 0;
-        for (auto i: v[cur]) {
-            if (dist[i.p] > dist[cur] + i.d) {
-                dist[i.p] = dist[cur] + i.d;  // 更新最短距离
-                cnt[i.p] = cnt[cur] + 1;  // 更新经过的节点数
-                if (cnt[i.p] > n) {  // 抽屉原理判断负环
+        for (auto ne: v[cur])
+            if (dist[ne.p] > dist[cur] + ne.d) {
+                dist[ne.p] = dist[cur] + ne.d;
+                cnt[ne.p] = cnt[cur] + 1;
+                if (cnt[ne.p] > n) {
                     cout << "Yes";
                     return 0;
                 }
-                if (used[i.p]) continue;
-                q.push(i.p);
-                used[i.p] = 0;
+                if (!used[ne.p])
+                    q.push(ne.p), used[ne.p] = 1;
             }
-        }
     }
     cout << "No";
 }

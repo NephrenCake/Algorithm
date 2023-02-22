@@ -2,23 +2,20 @@
 
 using namespace std;
 
-int phi(int a) {
-    int res = a;
-    for (int i = 2; i <= a / i; i++) {
-        if (a % i == 0) {
+int phi(int x) {
+    int res = x;
+    for (int i = 2; i <= x / i; i++)
+        if (x % i == 0) {
             res = res / i * (i - 1);
-            while (a % i == 0) a /= i;
+            while (x % i == 0) x /= i;
         }
-    }
-    if (a > 1) res = res / a * (a - 1);
+    if (x > 1) res = res / x * (x - 1);
     return res;
 }
 
 int main() {
     int n, a;
     cin >> n;
-    while (n--) {
-        cin >> a;
+    while (n-- && cin >> a)
         cout << phi(a) << endl;
-    }
 }

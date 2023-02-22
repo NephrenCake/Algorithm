@@ -4,36 +4,24 @@
 using namespace std;
 
 const int N = 1e5 + 10;
-int n, m, st[N];
-vector<int> ve[N];
-bool flag = true;
+int n, m, c[N], ans = 1;
+vector<int> v[N];
 
-void dfs(int cur) {
-    if (!flag) return;
-    for (int i: ve[cur]) {
-        if (st[i] == 3 - st[cur]) continue;
-        if (st[i] == st[cur]) flag = false;
-        st[i] = 3 - st[cur];
-        // printf("%d %d\n", i, st[i]);
-        dfs(i);
-    }
+void dfs(int idx, int last) {
+    if (ans == 0) return;
+    c[idx] = last == 1 ? 2 : 1;
+    for (auto ne: v[idx])
+        if (c[ne] == 0) dfs(ne, c[idx]);
+        else if (c[ne] == c[idx]) ans = 0;
 }
 
 int main() {
     cin >> n >> m;
-    while (m--) {
-        int u, v;
-        cin >> u >> v;
-        // if (u == v) continue;  // 自环也不能算作二分图
-        ve[u].push_back(v);
-        ve[v].push_back(u);
-    }
-
-    for (int i = 1; i <= n; i++)  // 可能非连通
-        if (!st[i]) {
-            st[i] = 1;
-            dfs(i);
-        }
-    if (flag) cout << "Yes";
+    for (int i = 1, a, b; i <= m; i++)  // 自环不能算作二分图
+        cin >> a >> b, v[b].push_back(a), v[a].push_back(b);
+    for (int i = 1; i <= n; i++)
+        if (!c[i])
+            dfs(i, 1);
+    if (ans) cout << "Yes";
     else cout << "No";
 }

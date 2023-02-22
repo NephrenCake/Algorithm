@@ -4,34 +4,28 @@
 using namespace std;
 
 const int N = 510;
-int n, m, g[N][N], used[N], dist[N], ans;  // dist 表示点到现有集合的最小距离
+int n, m, g[N][N], dist[N], used[N], sum, cnt;
 
 int main() {
     cin >> n >> m;
     memset(g, 0x3f, sizeof g);
-    while (m--) {
-        int u, v, w;
-        cin >> u >> v >> w;
-        g[u][v] = min(g[u][v], w);
-        g[v][u] = min(g[v][u], w);
-    }
-
+    for (int i = 1; i <= n; i++) g[i][i] = 0;
+    for (int i = 1, a, b, c; i <= m; i++) cin >> a >> b >> c, g[b][a] = g[a][b] = min(g[a][b], c);
     memset(dist, 0x3f, sizeof dist);
-    for (int k = 0; k < n; k++) {
-        int t = -1;
-        for (int i = 1; i <= n; i++)
-            if (!used[i] && (t == -1  || dist[t] > dist[i]))
-                t = i;
-        if (k && dist[t] == 0x3f3f3f3f) {
-            cout << "impossible";
-            return 0;
-        }
-        if (k) ans += dist[t];
-        dist[t] = 0;
-        used[t] = 1;
-        for (int i = 1; i <= n; i++)
-            if (dist[i] > g[t][i])
-                dist[i] = g[t][i];
+    dist[1] = 0;
+    for (int i = 1; i <= n; i++) {
+        int p = -1;
+        for (int j = 1; j <= n; j++)
+            if (!used[j] && (p == -1 || dist[p] > dist[j]))
+                p = j;
+        used[p] = 1;
+        if (dist[p] == 0x3f3f3f3f) break;
+        sum += dist[p];
+        cnt++;
+        for (int j = 1; j <= n; j++)
+            if (!used[j] && dist[j] > g[p][j])
+                dist[j] = g[p][j];
     }
-    cout << ans;
+    if (cnt != n) cout << "impossible";
+    else cout << sum;
 }

@@ -10,7 +10,7 @@ int q[N], hh = 0, tt = -1;
 
 int main() {
     cin >> n >> m;
-    while (cin >> a >> b) v[a].push_back(b), d[b]++;
+    while (m-- && cin >> a >> b) v[a].push_back(b), d[b]++;
 
     for (int i = 1; i <= n; i++)
         if (d[i] == 0)

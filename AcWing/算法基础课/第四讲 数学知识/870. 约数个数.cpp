@@ -3,27 +3,23 @@
 
 using namespace std;
 
+typedef unsigned long long ULL;
 const int MOD = 1e9 + 7;
+int n, a;
+ULL ans = 1;
 unordered_map<int, int> m;
 
-int get_divisors(int a) {
-    for (int i = 2; i <= a / i; i++) {
-        if (a % i == 0) {
-            while (a % i == 0) a /= i, m[i]++;
-        }
-    }
-    if (a > 1) m[a]++;
+void get_div(int x) {
+    for (int i = 2; i <= x / i; i++)
+        while (x % i == 0) x /= i, m[i]++;
+    if (x > 1) m[x]++;
 }
 
 int main() {
-    int n, a;
     cin >> n;
-    while (n--) {
-        cin >> a;
-        get_divisors(a);
-    }
-    long long ans = 1;
-    for (auto i: m)
-        ans = ans * (i.second + 1) % MOD;
+    while (n-- && cin >> a)
+        get_div(a);
+    for (auto it: m)
+        ans = ans * (it.second + 1) % MOD;
     cout << ans;
 }
