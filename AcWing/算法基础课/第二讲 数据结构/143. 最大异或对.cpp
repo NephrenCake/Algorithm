@@ -5,7 +5,7 @@ using namespace std;
 const int N = 1e5 + 10;
 int n, a[N], ans, ne[31 * N][2], idx = 1;
 
-int insert(int x) {
+void insert(int x) {
     int p = 0;
     for (int i = 30; i >= 0; i--) {
         int ch = x >> i & 1;

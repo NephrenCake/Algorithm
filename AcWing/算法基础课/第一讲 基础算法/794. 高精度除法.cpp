@@ -5,26 +5,25 @@ using namespace std;
 
 typedef vector<int> VI;
 
-VI div(VI &a, int b, int &r) {
-    VI c = VI(a.size(), 0);
+VI div(VI &A, int b, int &r) {
+    VI C = VI(A.size(), 0);
     r = 0;
-    for (int i = a.size() - 1; i >= 0; i--) {
-        r = r * 10 + a[i];
-        c[i] = r / b;
+    for (int i = A.size() - 1; i >= 0; i--) {
+        r = r * 10 + A[i];
+        C[i] = r / b;
         r %= b;
     }
-    while (c.size() > 1 && c.back() == 0) c.pop_back();
-    return c;
+    while (C.size() > 1 && C.back() == 0) C.pop_back();
+    return C;
 }
 
 int main() {
-    string s1;
-    int b, d;
-    VI a, c;
-    cin >> s1 >> b;
-    for (int i = s1.size() - 1; i >= 0; i--) a.push_back(s1[i] - '0');
-
-    c = div(a, b, d);
-    for (int i = c.size() - 1; i >= 0; i--) cout << c[i];
-    cout << endl << d;
+    string a;
+    VI A, C;
+    int b, r;
+    cin >> a >> b;
+    for (int i = a.size() - 1; i >= 0; i--) A.push_back(a[i] - '0');
+    C = div(A, b, r);
+    for (int i = C.size() - 1; i >= 0; i--) cout << C[i];
+    cout << endl << r;
 }

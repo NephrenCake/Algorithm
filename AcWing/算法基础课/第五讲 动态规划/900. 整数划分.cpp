@@ -13,7 +13,7 @@ int main() {
         for (int j = 0; j <= n; j++) {  // j´Ó0¿ªÊ¼
             f[i][j] = f[i - 1][j];
             if (j - i >= 0)
-                f[i][j] = (f[i][j] + f[i][j - i]) % MOD;
+                f[i][j] = (f[i][j - i] + f[i - 1][j]) % MOD;
         }
     cout << f[n][n];
 }

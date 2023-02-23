@@ -3,9 +3,9 @@
 
 using namespace std;
 
+typedef unsigned long long ULL;
 const int MOD = 1e9 + 7;
 int n, a;
-long long ans = 1;
 unordered_map<int, int> m;
 
 void get_div(int x) {
@@ -18,9 +18,11 @@ int main() {
     cin >> n;
     while (n-- && cin >> a) get_div(a);
 
+    ULL ans = 1;
     for (auto it: m) {
-        long long t = 1;
-        while (it.second--) t = (t * it.first + 1) % MOD;
+        int k = it.first, v = it.second;
+        ULL t = 1;
+        while (v--) t = (t * k + 1) % MOD;
         ans = (ans * t) % MOD;
     }
     cout << ans;

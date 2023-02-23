@@ -11,8 +11,8 @@ int main() {
 
     // f[l][r] 区间[l, r]合并所需最小代价
     for (int l = 2; l <= n; l++)
-        for (int i = 1; i + l - 1 <= n; i++) {
-            int j = i + l - 1;
+        for (int i = 1, j; i + l - 1 <= n; i++) {
+            j = i + l - 1;
             f[i][j] = 0x3f3f3f3f;
             for (int k = i; k < j; k++)
                 f[i][j] = min(f[i][j], f[i][k] + f[k + 1][j] + a[j] - a[i - 1]);

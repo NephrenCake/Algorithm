@@ -3,10 +3,8 @@
 
 using namespace std;
 
-typedef unsigned long long ULL;
 const int MOD = 1e9 + 7;
-int n, a;
-ULL ans = 1;
+int n, a, ans = 1;
 unordered_map<int, int> m;
 
 void get_div(int x) {
@@ -20,6 +18,6 @@ int main() {
     while (n-- && cin >> a)
         get_div(a);
     for (auto it: m)
-        ans = ans * (it.second + 1) % MOD;
+        ans = (long long) (it.second + 1) * ans % MOD;
     cout << ans;
 }

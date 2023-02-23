@@ -3,7 +3,7 @@
 using namespace std;
 
 const int N = 50010;
-int ans, p[N], d[N];
+int p[N], d[N], ans;
 
 int find(int x) {
     if (x != p[x]) {
@@ -15,24 +15,22 @@ int find(int x) {
 }
 
 int main() {
-    int n, k;
+    int n, k, a, b, c;
     cin >> n >> k;
     for (int i = 1; i <= n; i++) p[i] = i;
-    while (k--) {
-        int t, a, b;
-        cin >> t >> a >> b;
-        int ra = find(a), rb = find(b);
-
-        if (a > n || b > n || t == 2 && a == b)
+    while (k-- && cin >> c >> a >> b) {
+        c = c == 2 ? 1 : 0;
+        int pa = find(a), pb = find(b);
+        if (a > n || b > n || c == 1 && a == b) {
             ans++;
-        else {
-            int rel = t == 2 ? 1 : 0;
-            if (ra == rb && ((d[a] - d[b]) % 3 + 3) % 3 != rel) {
+            continue;
+        }
+        if (pa == pb) {
+            if (((d[a] - d[b]) % 3 + 3) % 3 != c)
                 ans++;
-            } else {
-                p[ra] = rb;
-                d[ra] = d[b] - d[a] + rel;  // (d[a] + ?) % 3 == (d[b] + rel) % 3
-            }
+        } else {
+            p[pa] = pb;
+            d[pa] = d[b] - d[a] + c;  // (d[a] + ?) % 3 == (d[b] + rel) % 3
         }
     }
     cout << ans;

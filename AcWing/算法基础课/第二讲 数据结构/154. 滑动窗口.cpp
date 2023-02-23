@@ -11,7 +11,7 @@ int main() {
 
     for (int i = 1; i <= n; i++) {
         while (hh <= tt && q[hh] <= i - k) hh++;
-        while (hh <= tt && a[q[tt]] >= a[i]) tt--;
+        while (hh <= tt && a[q[tt]] > a[i]) tt--;
         q[++tt] = i;
         if (i >= k) cout << a[q[hh]] << " ";
     }
@@ -19,7 +19,7 @@ int main() {
     hh = 0, tt = -1;
     for (int i = 1; i <= n; i++) {
         while (hh <= tt && q[hh] <= i - k) hh++;
-        while (hh <= tt && a[q[tt]] <= a[i]) tt--;
+        while (hh <= tt && a[q[tt]] < a[i]) tt--;  // 是否取等无关
         q[++tt] = i;
         if (i >= k) cout << a[q[hh]] << " ";
     }
