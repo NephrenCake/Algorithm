@@ -2,8 +2,10 @@
 
 using namespace std;
 
-int phi(int x) {
-    int res = x;
+typedef long long LL;
+
+LL get_phi(int x) {
+    LL res = x;
     for (int i = 2; i <= x / i; i++)
         if (x % i == 0) {
             res = res / i * (i - 1);
@@ -17,5 +19,5 @@ int main() {
     int n, a;
     cin >> n;
     while (n-- && cin >> a)
-        cout << phi(a) << endl;
+        cout << get_phi(a) << endl;
 }

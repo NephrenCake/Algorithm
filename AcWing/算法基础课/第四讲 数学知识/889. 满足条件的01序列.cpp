@@ -2,8 +2,8 @@
 
 using namespace std;
 
-typedef long long LL;
 const int N = 2e5 + 10, MOD = 1e9 + 7;
+typedef long long LL;
 LL fact[N], infact[N];
 
 LL qmi(int a, int b, int p) {
@@ -17,12 +17,10 @@ LL qmi(int a, int b, int p) {
 }
 
 int main() {
+    fact[0] = infact[0] = 1;
+    for (int i = 1; i <= 2e5; i++)
+        fact[i] = fact[i - 1] * i % MOD, infact[i] = infact[i - 1] * qmi(i, MOD - 2, MOD) % MOD;
     int n;
     cin >> n;
-    fact[0] = infact[0] = 1;
-    for (int i = 1; i <= 2e5; i++) {
-        fact[i] = fact[i - 1] * i % MOD;
-        infact[i] = infact[i - 1] * qmi(i, MOD - 2, MOD) % MOD;
-    }
-    cout << fact[2 * n] * infact[n] % MOD * infact[n] % MOD * qmi(n + 1, MOD - 2, MOD) % MOD;
+    cout << fact[2 * n] * infact[n] % MOD * infact[n] % MOD * qmi(n + 1, MOD - 2, MOD) % MOD << endl;
 }
