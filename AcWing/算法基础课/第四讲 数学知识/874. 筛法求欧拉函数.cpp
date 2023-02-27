@@ -3,7 +3,8 @@
 using namespace std;
 
 const int N = 1e6 + 10;
-int n, used[N], phi[N], primes[N], cnt;
+int n, used[N], primes[N], cnt, phi[N];
+long long ans;
 
 void get_phi(int x) {
     phi[1] = 1;
@@ -12,13 +13,13 @@ void get_phi(int x) {
             primes[cnt++] = i;
             phi[i] = i - 1;
         }
-        for (int j = 0; primes[j] <= x / i; j++) {  // È¡µÈºÅ
+        for (int j = 0; primes[j] <= x / i; j++) {
             used[primes[j] * i] = 1;
             if (i % primes[j] == 0) {
-                phi[primes[j] * i] = phi[i] * primes[j];  // phi[i]
+                phi[primes[j] * i] = phi[i] * primes[j];
                 break;
             }
-            phi[primes[j] * i] = phi[i] * (primes[j] - 1);  // (primes[j] - 1)
+            phi[primes[j] * i] = phi[i] * (primes[j] - 1);
         }
     }
 }
@@ -26,8 +27,6 @@ void get_phi(int x) {
 int main() {
     cin >> n;
     get_phi(n);
-    long long ans = 0;  // ÉÏLL
-    for (int i = 1; i <= n; i++)
-        ans += phi[i];
+    for (int i = 1; i <= n; i++) ans += phi[i];
     cout << ans;
 }

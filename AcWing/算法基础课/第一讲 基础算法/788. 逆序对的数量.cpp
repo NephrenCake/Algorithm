@@ -8,19 +8,20 @@ int n, a[N], t[N];
 
 LL sort(int l, int r) {
     if (l == r) return 0;
-    int m = (l + r) / 2, p = l, q = m + 1, k = 0;
+    int m = (l + r) >> 1;
     LL res = sort(l, m) + sort(m + 1, r);
-    while (p <= m && q <= r) {
-        if (a[p] <= a[q]) {
-            t[k++] = a[p++];
-        } else {
-            res += m - p + 1;
-            t[k++] = a[q++];
+    int i = l, j = m + 1, k = 0;
+    while (i <= m && j <= r) {
+        if (a[i] <= a[j])
+            t[k++] = a[i++];
+        else {
+            res += m - i + 1;
+            t[k++] = a[j++];
         }
     }
-    while (p <= m) t[k++] = a[p++];
-    while (q <= m) t[k++] = a[q++];
-    while (q > l) a[--q] = t[--k];
+    while (i <= m) t[k++] = a[i++];
+    while (j <= r) t[k++] = a[j++];
+    while (k) a[--j] = t[--k];
     return res;
 }
 

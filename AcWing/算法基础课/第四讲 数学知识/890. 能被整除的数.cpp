@@ -27,3 +27,30 @@ int main() {
     }
     cout << ans;
 }
+
+// #include <iostream>
+//
+// using namespace std;
+//
+// const int N = 20;
+// int n, m, a[N], ans, cnt;
+//
+// // d 集合中需要的数字个数 cur 集合中的乘积 idx 枚举到的位置
+// void dfs(int d, long long cur, int idx) {
+//     if (d == 0) {
+//         if (cnt & 1) ans += n / cur;
+//         else ans -= n / cur;
+//         return;
+//     }
+//     if (cur > n || idx > m) return;
+//     dfs(d, cur, idx + 1);  // 不选这个数
+//     dfs(d - 1, cur * a[idx], idx + 1);  // 选上这个数
+// }
+//
+// int main() {
+//     cin >> n >> m;
+//     for (int i = 1; i <= m; i++) cin >> a[i];
+//     for (int i = 1; i <= m; i++)
+//         cnt = i, dfs(i, 1, 1);
+//     cout << ans;
+// }
