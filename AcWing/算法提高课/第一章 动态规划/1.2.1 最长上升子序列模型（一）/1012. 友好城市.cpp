@@ -1,61 +1,31 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
+
 using namespace std;
 
 const int N = 10010;
-int n, a[N], f[N];
-
-int main() {
-    for (int i = 0; i < N; i++) a[i] = -1;
-    cin >> n;
-    while (n--) {
-        int p, q;
-        cin >> p >> q;
-        a[p] = q;
-    }
-
-    int ans = 0;
-    for (int i = 0; i < N; i++) {
-        if (a[i] == -1) continue;
-        f[i] = 1;
-        for (int j = 0; j < i; j++) {
-            if (a[j] == -1) continue;
-            if (a[i] > a[j])
-                f[i] = max(f[i], f[j] + 1);
-        }
-        ans = max(ans, f[i]);
-    }
-
-    cout << ans;
-    return 0;
-}
-
-/*
-#include <iostream>
-#include <algorithm>
-using namespace std;
-
+int n, b[N], val[N], f[N], ans;
 typedef pair<int, int> PII;
-const int N = 10010;
-int n, f[N];
-PII a[N];
+vector<PII> a;
 
 int main() {
     cin >> n;
-    for (int i = 0; i < n; i++)
-        cin >> a[i].first >> a[i].second;
-    sort(a, a + n);
+    for (int i = 1, x, y; i <= n; i++) {
+        cin >> x >> y;
+        a.push_back({y, x});
+    }
 
-    int ans = 0;
-    for (int i = 0; i < n; i++) {
+    sort(a.begin(), a.end());
+    for (int i = 0; i < (int) a.size(); i++)
+        b[i + 1] = a[i].second;
+
+    for (int i = 1; i <= n; i++) {
         f[i] = 1;
-        for (int j = 0; j < i; j++)
-            if (a[i].second > a[j].second)
+        for (int j = 1; j < i; j++)
+            if (b[j] < b[i])
                 f[i] = max(f[i], f[j] + 1);
         ans = max(ans, f[i]);
     }
     cout << ans;
-    return 0;
 }
-
- */

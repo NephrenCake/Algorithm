@@ -1,31 +1,29 @@
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 
 const int N = 1010;
-int n, a[N], f[N], g[N];
+int n, a[N], f[N], ans, g[N], cnt;
 
 int main() {
-    while (cin >> a[n]) n++;  // 未确定n时的输入
+    for (int t; cin >> t;) a[++n] = t;
 
-    int ans = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = n; i >= 1; i--) {
         f[i] = 1;
-        for (int j = 0; j < i; j++)  // 严格单调上升和非严格单调下降是相对的，都从前往后遍历
-            if (a[i] <= a[j])
+        for (int j = n; i < j; j--)
+            if (a[i] >= a[j])
                 f[i] = max(f[i], f[j] + 1);
         ans = max(ans, f[i]);
     }
     cout << ans << endl;
 
-    int cnt = 0;
-    for (int i = 0; i < n; i++) {
-        int k = 0;
-        while (k < cnt && g[k] < a[i]) k++;
-        g[k] = a[i];
-        cnt = max(cnt, k + 1);
+    for (int i = 1; i <= n; i++) {
+        int p = -1;
+        for (int j = 0; j < cnt; j++)
+            if (g[j] >= a[i] && (p == -1 || g[p] > g[j]))
+                p = j;
+        if (p == -1) p = cnt++;
+        g[p] = a[i];
     }
     cout << cnt;
-    return 0;
 }
